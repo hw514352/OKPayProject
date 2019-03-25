@@ -1,2 +1,0 @@
-# OKPayProject
-OKPayProject
