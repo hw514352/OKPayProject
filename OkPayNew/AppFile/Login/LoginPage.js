@@ -6,6 +6,9 @@ import DataRequestTool from '../PublicFile/DataRequestTool';
 import ServiceUrl from '../PublicFile/ServiceUrl';
 import SmsCodeButton from '../CustomComponents/SmsCodeButton';
 import md5 from "react-native-md5";
+import Toast from 'react-native-zzy-toast';
+
+
 export default class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -250,54 +253,20 @@ export default class LoginPage extends Component {
     // this.loginStore.valiCode(this.state.phone)
   }
   liginAction() {
-    new Promise(function (resolve, reject) {
-       return new Promise(function (resolve, reject) {
-        console.log('111111');
-        // return '111111';
-        // resolve('1231111')
-        reject('111111')
-      })
-        .then((response) => {
-          console.log('222222::', response);
-            // return '222222';
-          // resolve('1231111')
-            reject(response)
-        }, (response) => {
-          console.log('2222222222::', response);
-          // return '222222';
-            resolve('1231111')
-          // reject(response)
-        })
-        .then((response) => {
-          console.log('333333::', response);
-          resolve(response);
-        }, (response) => {
-          console.log('2222222222::', response);
-          return '222222';
-          // reject(response)
-        })
-        .catch((err) => {
-          console.log('444444::', err);
-          // reject(new Error(err));
-        })
-    
-    }).then((response) => {
-      console.log('555555::', response);
-      resolve(response);
-    })
-      .catch((err) => {
-        console.log('666666::', err);
-        // reject(new Error(err));
-      })
+      let formData = new FormData();
+      formData.append("mobile", '17688791108');
+      formData.append("password", md5.hex_md5('123456'));
+      DataRequestTool.postRequrst(ServiceUrl.login, formData).then((ret) => {
+          if(ret.state == 0){
+              // Toast.show('成功');
+          } else {
+              // Toast.show(ret.errorMessage);
+          }
+      }).catch((error) => {
+          // Toast.show(err);
+          console.log(error);
+      });
 
-    // let formData = new FormData();
-    // formData.append("mobile", '17688791108');
-    // formData.append("password", md5.str_md5('123456'));
-    // DataRequestTool.postRequrst(ServiceUrl.login, formData).then((ret) => {
-    //   resolve(ret);
-    // }).catch((err) => {
-    //   reject(err);
-    // });;
 
     // if (GCMethods.isPoneAvailable(this.state.loginPhone)) {
     //   if (this.state.loginSmsCode.length == 0) {

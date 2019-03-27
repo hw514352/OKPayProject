@@ -1,5 +1,6 @@
 'use strict';
 import ServiceUrl from './ServiceUrl';
+import Toast from 'react-native-zzy-toast';
 
 /**
  * fetch 网络请求的header，可自定义header 内容
@@ -9,7 +10,7 @@ let header = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     "Connection": "close",
-    "type": "getUserData", 
+    "type": "getUserData",
 }
 
 /**
@@ -37,7 +38,7 @@ const handleUrl = (url, params) => {
  * @param timeout 超时时间 30s
  * @returns {Promise.<*>}
  */
-const timeoutFetch = (original_fetch, timeout = 10000) => {
+const timeoutFetch = (original_fetch, timeout = 1500) => {
     let timeoutBlock = () => { }
     let timeout_promise = new Promise((resolve, reject) => {
         timeoutBlock = () => {
@@ -98,52 +99,29 @@ export default class DataRequestTool {
      * @returns {Promise}
      */
     static postRequrst = (url, params = {}) => {
-        return new Promise(function (resolve, reject) {
-            fetch(url, {
-                method: 'POST',
-                headers: header,
-                body: params
-            })
-                .then((response) => {
-                    console.log('response11111::', response);
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        reject(response)
-                    }
-                })
-                .then((response) => {
-                    console.log('response22222::', response);
-                    resolve(response);
-                })
-                .catch((err) => {
-                    console.log('response33333::', err);
-                    reject(new Error(err));
-                })
+        return timeoutFetch(fetch(ServiceUrl.HostUrl+url, {
+            method: 'POST',
+            headers: header,
+            body: params
+        })).then(response => {
+            // 成功后检查数据
+            if (response.ok) {
+                return response
+            } else {
+                let error = new Error(response.statusText)
+                error.response = response
+                throw error
+            }
+        }).then(response => {
+            //解析数据
+            let json = response.json()
+            if(json.state == 301 || json.state == 302){
+                // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
+                Toast.show('登录失效，即将退出！');//登录失效
+            }
+            return json
+        }).catch(error => {
+            throw error
         })
-        // return timeoutFetch(fetch(url, {
-        //     method: 'POST',
-        //     headers: header,
-        //     body: params
-        // })).then(response => {
-        //     console.log('response2::', response);
-            
-        //     if (response.ok) {
-        //         return response.json()
-        //     } else {
-        //         reject(response)
-        //     }
-        // }).then(response => {
-        //     console.log('response2::', response);
-        //     if (response && response.code === 200) {
-        //         return response
-        //     } else {
-        //         // alert(response.message)
-        //         return response
-        //     }
-        // }).catch(error => {
-        //     console.log('response3::', error);
-        //     reject(new Error(error));
-        // })
     }
 }
