@@ -73,22 +73,24 @@ export default class DataRequestTool {
             method: 'GET',
             headers: header
         })).then(response => {
+            // 成功后检查数据
             if (response.ok) {
-                return response.json()
+                return response
             } else {
-                alert(response)
+                let error = new Error(response.statusText)
+                error.response = response
+                throw error
             }
         }).then(response => {
-            // response.code：是与服务器端约定code：200表示请求成功，非200表示请求失败，message：请求失败内容
-            if (response) {
-                return response
-            } else {
-                // 非 200，错误处理
-                // alert(response.message)
-                return response
+            //解析数据
+            let json = response.json()
+            if (json.state == 301 || json.state == 302) {
+                // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
+                Toast.show('登录失效，即将退出！');//登录失效
             }
+            return json
         }).catch(error => {
-            alert(error)
+            throw error
         })
     }
 

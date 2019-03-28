@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { Platform, YellowBox, TouchableOpacity, TextInput, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, YellowBox, TouchableOpacity, TextInput, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import GlobalParameters from '../PublicFile/GlobalParameters';
-import DataRequestTool from '../PublicFile/DataRequestTool';
-import ServiceUrl from '../PublicFile/ServiceUrl';
 import SmsCodeButton from '../CustomComponents/SmsCodeButton';
-import md5 from "react-native-md5";
-import Toast from 'react-native-zzy-toast';
-
+// import Toast from 'react-native-zzy-toast';
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -24,9 +20,9 @@ export default class LoginPage extends Component {
     };
   }
 
-  // static navigationOptions = ({ navigation, screenProps }) => ({
-  //   header: null
-  // })
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    header: null
+  })
 
   componentDidMount() {
     // SplashScreen.hide();
@@ -132,8 +128,7 @@ export default class LoginPage extends Component {
 
           {this.state.isPwdLogin ?
             <TouchableOpacity onPress={() => {
-              const { navigate } = this.props.navigation;
-              navigate("ModifyLoginSecret", { isHideInputPhone: false })
+              this.props.navigation.navigate("ForgetPsswordPage")
             }}>
               <Text style={{ fontSize: 16, color: "#7C7B8E" }}>忘记密码</Text>
             </TouchableOpacity>
@@ -253,20 +248,6 @@ export default class LoginPage extends Component {
     // this.loginStore.valiCode(this.state.phone)
   }
   liginAction() {
-      let formData = new FormData();
-      formData.append("mobile", '17688791108');
-      formData.append("password", md5.hex_md5('123456'));
-      DataRequestTool.postRequrst(ServiceUrl.login, formData).then((ret) => {
-          if(ret.state == 0){
-              // Toast.show('成功');
-          } else {
-              // Toast.show(ret.errorMessage);
-          }
-      }).catch((error) => {
-          // Toast.show(err);
-          console.log(error);
-      });
-
 
     // if (GCMethods.isPoneAvailable(this.state.loginPhone)) {
     //   if (this.state.loginSmsCode.length == 0) {
