@@ -11,4 +11,14 @@ export default {
     HostUrl: HostUrl,
     login: base_project_name + 'api/zjjoy/login',//登录
     register: base_project_name + 'api/zjjoy/register',//注册
+
+    //Home
+    pageHome: base_project_name + "api/member/pageHome",//主页
+    myBalance: base_project_name + "api/balance/myBalance",//用户
+    gccoins: base_project_name + "api/gccoins",//矿石-列表
+    configs: base_project_name + "api/common/configs?keys=about_us,service_telephone,fund_transfer_enabled,issue_token_total,issue_token_in,complaint_service_telephone",
+    gccoinsTake: base_project_name + "api/gccoins/take",//矿石-领取
+    
+    // H5
+    lottery_h5: HostUrl + '/btb2-wms/h5/h5-lottery.html',//抽奖页面
 }

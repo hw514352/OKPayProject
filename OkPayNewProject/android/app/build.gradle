@@ -138,6 +138,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-video')
+    implementation project(':react-native-sound')
     implementation project(':react-native-zzy-toast')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Platform, YellowBox, TouchableOpacity, TextInput, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
-import GlobalParameters from '../PublicFile/GlobalParameters';
-import SmsCodeButton from '../CustomComponents/SmsCodeButton';
+import GlobalParameters from '../../PublicFile/GlobalParameters';
+import SmsCodeButton from '../../CustomComponents/SmsCodeButton';
 import Toast from 'react-native-zzy-toast';
-import LoginStore from '../MobxStore/LoginStore';
-import PublicMethods from '../PublicFile/PublicMethods';
-import OKStorage from '../PublicFile/OKStorage';
-// import { observer } from 'mobx-react/native';
-// import { observe } from 'mobx';
+import LoginStore from '../../MobxStore/LoginStore';
+import PublicMethods from '../../PublicFile/PublicMethods';
+import OKStorage from '../../PublicFile/OKStorage';
+import { observer } from 'mobx-react/native';
+import { observe } from 'mobx';
 
-// @observer
+@observer
 export default class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -42,9 +42,14 @@ export default class LoginPage extends Component {
     }).catch(() => { });
 
     // 登录监听
-    // observe(LoginStore, 'isSuccesslogin', (change) => {
-    //   alert('登录成功');
-    // });
+    observe(LoginStore, 'isSuccesslogin', (change) => {
+      if (LoginStore.isSuccesslogin) {
+        LoginStore.isSuccesslogin = false;
+        //登录成功进入主页
+        Toast.show('登录成功进入主页');
+        this.props.navigation.navigate('NormalModalNavigator');
+      }
+    });
   }
 
   changeLoginAndRegister(index) {
@@ -247,24 +252,6 @@ export default class LoginPage extends Component {
     )
   }
 
-  areaCodeView() {
-    return (
-      <ScrollView style={{ borderColor: OKColor.lineColor, borderWidth: this.state.isShowAreaCodeView ? 1 : 0, left: 20, top: 195, flex: 1, position: 'absolute', height: this.state.isShowAreaCodeView ? 160 : 0, overflow: 'hidden' }}>
-        {this.state.areaCode.map((item, idx) => {
-          return (
-            <TouchableOpacity key={idx} onPress={() => {
-              this.setState({
-                areaCodeStr: item,
-                isShowAreaCodeView: !this.state.isShowAreaCodeView
-              })
-            }} style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 50, borderBottomWidth: 1, borderBottomColor: OKColor.lineColor, backgroundColor: 'white' }}>
-              <Text style={{ color: '#797979', fontSize: 13 }}>{item}</Text>
-            </TouchableOpacity>
-          )
-        })}
-      </ScrollView>
-    )
-  }
   senderMessage() {
     // this.loginStore.valiCode(this.state.phone)
   }

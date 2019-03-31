@@ -6,12 +6,16 @@ const ios = (OS == 'ios');
 const android = (OS == 'android');
 const isIPhoneX = (ios && height == 812 && width == 375);
 const statusBarHeight = (ios ? (isIPhoneX ? 44 : 20) : StatusBar.currentHeight);
+const navigationHeight = (ios ? (isIPhoneX ? 44 : 20) : StatusBar.currentHeight) + 44;
+const tabBarHeight = (isIPhoneX ? 34 + 49 : 49);
 
 global.OKScreen = {
     width:width,
     height:height,
-    statusBarHeight:statusBarHeight,
-    onePixelRatio:1/PixelRatio.get(),
+    statusBarHeight: statusBarHeight,
+    navigationHeight: navigationHeight,
+    tabBarHeight: tabBarHeight,
+    onePixelRatio: 1/PixelRatio.get(),
 };
 
 global.OKDevice = {

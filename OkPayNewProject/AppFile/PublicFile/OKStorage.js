@@ -51,4 +51,7 @@ export default class OKStorage {
 }
 global.OKStorage = OKStorage;
 
+/*保存的key*/
 global.LastLoginPhone = 'LastLoginPhone';
+global.MSUserToken = 'MSUserToken'; 
+global.MSUserData = 'MSUserData';

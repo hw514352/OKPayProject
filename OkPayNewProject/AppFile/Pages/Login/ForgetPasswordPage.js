@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { StatusBar, Platform, TextInput, StyleSheet, Text, View, ScrollView } from 'react-native';
-// import GCStyle from '../../configs/GCStyle'
 
 // import { observer } from 'mobx-react/native';
 // import { observe } from 'mobx';
 // import Toast from 'react-native-zzy-toast';
-import SmsCodeButton from '../CustomComponents/SmsCodeButton';
-import LoginStore from '../MobxStore/LoginStore';
+import SmsCodeButton from '../../CustomComponents/SmsCodeButton';
+import LoginStore from '../../MobxStore/LoginStore';
 
 // @observer
 export default class ForgetPasswordPage extends Component {
@@ -25,6 +24,7 @@ export default class ForgetPasswordPage extends Component {
     }
 
     componentDidMount() {
+        
     }
 
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -43,7 +43,7 @@ export default class ForgetPasswordPage extends Component {
                 <StatusBar ref="statusBarView" barStyle={this.state.backTopGround} />
                 <ScrollView>
                     <View style={{ flex: 1, marginTop: 15, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center' }}>
-                        {this.props.navigation.state.params.isHideInputPhone ? null :
+                        {this.props.navigation.getParam('isHideInputPhone',false) ? null :
                             <TextInput
                                 clearButtonMode={'while-editing'}
                                 maxLength={11}
@@ -87,7 +87,8 @@ export default class ForgetPasswordPage extends Component {
                             <View style={{ marginRight: 15, marginLeft: 10 }}>
                                 <SmsCodeButton countdownTxt='s' normalTxt='验证码' ref='smsCodeBn'
                                     // phone={this.props.navigation.state.params.isHideInputPhone ? AppStore.userData.mobilePhone : this.state.inputPhone}
-                                    senderMessage={() => this.senderMessage()}
+                                    senderMessage={() => {
+                                    }}
                                     codeButtonStyle={{ height: 30, width: 80, backgroundColor: OKColor.buttonBackgroundColorColor, borderRadius: 3, justifyContent: 'center', alignItems: 'center' }}
                                     codeButtonTextStyle={{ fontSize: 15, color: 'white' }} />
                             </View>
@@ -133,7 +134,6 @@ export default class ForgetPasswordPage extends Component {
                             style={styles.textInput}
                             placeholder="确认密码"
                             placeholderTextColor="#B1B2B8" />
-
                     </View>
 
                     {this.state.promptErrorText ?
@@ -143,12 +143,8 @@ export default class ForgetPasswordPage extends Component {
                     <View style={{ marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
                         {/* {GCStyle.GRBn('完成', OKColor.buttonBackgroundColorColor, 0, this.modifyLoginPassword.bind(this), GCStyle.GCWidth - 50)} */}
                     </View>
-
-
                 </ScrollView>
             </View>
-
-
         );
     }
 }
