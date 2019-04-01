@@ -97,6 +97,29 @@ class HomeStore {
         });
     }
 
+    // "id": 37618,
+    // "mobilePhone": "18015263111",
+    // "gender": 1,
+    // "realName": "",
+    // "nickName": "180****3111",
+    // "otherName": "",
+    // "headPortraitUrl": "http://image.uuschool.cn/20180910/234a3bb186b045a8aef0fe5ea094feac",
+    // "calculateForce": 310             //排行榜个人算力值
+    @observable calculateForceRankingData = [];
+    @observable memberData = {};//自己的算力数据
+    @action('算力排行榜') getCalculateForceRanking = () => {
+        DataRequestTool.getRequest(ServiceUrl.getCalculateForceRanking, '').then((ret) => {
+            if (ret.state == 0) {
+                alert('123')
+                this.calculateForceRankingData = ret.dataMap.data ? ret.dataMap.data : [];
+                this.memberData = ret.dataMap.member ? ret.dataMap.member : {};
+            }
+        }).catch((error) => {
+            alert(error)
+            // Toast.show(err);
+        });
+    }
+
     // @observable totalCount = 1;
     // @observable didLoadAllData = false;
     // //type 1-挂单通知，2-转余额通知，3-奖励通知
@@ -276,27 +299,6 @@ class HomeStore {
     //         if (ret.state == 0) {
     //             this.hashRateData = ret.dataMap.data ? ret.dataMap.data : {};
     //             this.totalCalculateForce = ret.dataMap.totalCalculateForce ? ret.dataMap.totalCalculateForce : 0;
-    //         }
-    //     }).catch((error) => {
-
-    //     });
-    // }
-
-    // // "id": 37618,
-    // // "mobilePhone": "18015263111",
-    // // "gender": 1,
-    // // "realName": "",
-    // // "nickName": "180****3111",
-    // // "otherName": "",
-    // // "headPortraitUrl": "http://image.uuschool.cn/20180910/234a3bb186b045a8aef0fe5ea094feac",
-    // // "calculateForce": 310             //排行榜个人算力值
-    // @observable calculateForceRankingData = [];
-    // @observable memberData = {};//自己的算力数据
-    // @action('算力排行榜') getCalculateForceRanking = () => {
-    //     HomeApi.getCalculateForceRanking().then((ret) => {
-    //         if (ret.state == 0) {
-    //             this.calculateForceRankingData = ret.dataMap.data ? ret.dataMap.data : [];
-    //             this.memberData = ret.dataMap.member ? ret.dataMap.member : {};
     //         }
     //     }).catch((error) => {
 

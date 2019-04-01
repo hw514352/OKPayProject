@@ -25,7 +25,8 @@ global.OKDevice = {
 };
 
 global.OKColor = {
-    themeColor:'#213679',//主风格颜色
+    themeColor:'#C17D0D',//主风格颜色
     lineColor:'#EDEDED',//线颜色
-    buttonBackgroundColorColor:'#DEB963'//按钮背景颜色
+    buttonBackgroundColorColor:'#DEB963',//按钮背景颜色
+    defautBackColor: '#FAF7FA',//默认背景色
 };

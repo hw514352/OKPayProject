@@ -3,6 +3,7 @@ import { TouchableOpacity, Platform, TextInput, StyleSheet, Text, View, ScrollVi
 import GlobalParameters from '../../PublicFile/GlobalParameters';
 import AppStore from '../../MobxStore/AppStore';
 import OKStorage from '../../PublicFile/OKStorage';
+import UserDataManager from '../../PublicFile/UserDataManager';
 
 export default class LaunchPage extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class LaunchPage extends Component {
         OKStorage.read(MSUserToken).then((ret) => {
             //是否已经登录
             if (ret.length > 0) {
-                this.props.navigation.navigate('NormalStackNavigator');
+                this.props.navigation.navigate('NormalModalNavigator');
             } else {
                 this.props.navigation.navigate('LoginStackNavigator');
             }

@@ -37,10 +37,6 @@ export default class HomePage extends Component<Props> {
 
             didNoDatas: false,//所有矿石全部采集完后
             didNoDatasText: '...',
-
-            //背景流星
-            transX: new Animated.Value(shootingWt),
-            transY: new Animated.Value(-shootingHg),
         };
         // animation
         this.bgViewScale = new Animated.Value(0),//背景地球组件缩放动画
@@ -60,8 +56,6 @@ export default class HomePage extends Component<Props> {
     componentDidMount() {
         HomeStore.pageHomeDataAction();//主页基本数据
         HomeStore.GetmyBalance();//当前资产
-
-        this.animate();
         this.shakeSpin();
     }
     // 震动动画
@@ -134,26 +128,6 @@ export default class HomePage extends Component<Props> {
             this.interval && clearTimeout(this.interval);
         }
     }
-    //流星动画
-    animate() {
-        Animated.parallel([
-            Animated.timing(this.state.transX, {
-                toValue: -shootingWt,
-                duration: 3800
-            }),
-            Animated.timing(this.state.transY, {
-                toValue: shootingHg,
-                duration: 3800
-            })
-        ]).start(() =>
-            this.setState({
-                transX: new Animated.Value(shootingWt),
-                transY: new Animated.Value(-shootingHg),
-            }, () => {
-                this.animate()
-            })
-        );
-    }
     // 获取算力 玩转okpay
     _activityClick(index) {
         const { navigate, push } = this.props.navigation
@@ -161,7 +135,8 @@ export default class HomePage extends Component<Props> {
             navigate('GetHashRate', { totalHashRate: HomeStore.calculateForce });
         } else if (index == 2) {
             // navigate('GamePage');
-            Toast.show('正在建设中');
+            push('HomePage');
+            // Toast.show('正在建设中');
         } else {
             // Toast.show('功能升级中');
             // return;
@@ -247,9 +222,6 @@ export default class HomePage extends Component<Props> {
                         repeat={true}// 是否重复播放
                     />
                 </View>
-                {/*<View style={{ position: 'absolute', width: '100%', height: '100%' }}>
-          <Image style={{ width: '100%', height: '100%' }} source={Images.mineral_bgNext} resizeMode='cover' />
-        </View>*/}
 
                 <ScrollView style={{ backgroundColor: 'rgba(0,0,0,0)' }} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', width: OKScreen.width }}
                     showsVerticalScrollIndicator={false}
@@ -294,13 +266,6 @@ export default class HomePage extends Component<Props> {
 
                     {/* 矿池 */}
                     <View style={{ width: OKScreen.width, height: BtBheight }}>
-                        {/* 流星动画
-              <Animated.Image source={Images.meteor} style={{
-              width: shootingWt, height: shootingHg, position: "absolute",
-              transform: [{ translateY: this.state.transY }, { translateX: this.state.transX }]
-            }}
-            />*/}
-
                         {/* 地球背景 居中*/}
                         <Animated.View style={{
                             transform: [{ scale: this.bgViewScale }, { perspective: 1000 }],
@@ -341,7 +306,7 @@ export default class HomePage extends Component<Props> {
                         </Animated.View>
                     </View>
 
-                    {/* 获取算力 玩转okpay */}
+                    {/* 获取算力 OK抽奖 玩转okpay */}
                     <View style={{ height: 80, justifyContent: 'space-around', width: OKScreen.width, flexDirection: 'row', }}>
                         {this.row1View(Images.mineral_huoqusuanli_btn, '获取算力', 0)}
                         {this.row1View(Images.mineral_wanzhuanokpay_btn, 'OK抽奖', 1)}
@@ -381,7 +346,6 @@ export default class HomePage extends Component<Props> {
         )
     }
 
-    // 获取算力 玩转okpay
     row1View(bgImage, title, index) {
         return (
             <View style={{ alignItems: 'center', justifyContent: 'space-between' }}>

@@ -68,34 +68,55 @@ export default class CustomTabBar extends Component {
     render() {
         let routeName = this.props.navigation.state.routeName;
         let index = this.props.navigation.state.index;
-        let tabBarInfo = [{ name: '娱乐', icon: index == 0 ? Images.Images.tab_icon_game_default : Images.tab_icon_game_pressed},
-            { name: '消息', icon: index == 1 ? Images.tab_icon_chat_default : Images.tab_icon_chat_pressed },
-            { name: 'okpay', icon: index == 2 ? Images.tabOk : Images.tabokN },
-            { name: '商城', icon: index == 3 ? Images.tab_icon_store_default : Images.tab_icon_store_pressed },
-            { name: '我的', icon: index == 4 ? Images.tab_icon_mine_default : Images.tab_icon_mine_pressed }];
+        // let tabBarInfo = [{ name: '娱乐', icon: index == 0 ? Images.Images.tab_icon_game_default : Images.tab_icon_game_pressed},
+        //     { name: '消息', icon: index == 1 ? Images.tab_icon_chat_default : Images.tab_icon_chat_pressed },
+        //     { name: 'okpay', icon: index == 2 ? Images.tabOk : Images.tabokN },
+        //     { name: '商城', icon: index == 3 ? Images.tab_icon_store_default : Images.tab_icon_store_pressed },
+        //     { name: '我的', icon: index == 4 ? Images.tab_icon_mine_default : Images.tab_icon_mine_pressed }];
         return (
-            <View style={{ width: OKScreen.width, height: OKScreen.tabBarHeight, borderTopWidth: 1, borderTopColor: OKColor.lineColor, flexDirection: 'row' }}>
-                {tabBarInfo.map((item,index1)=>{
-                    // if (index == 2) {
-                    //     return (
-                    //         <TouchableOpacity onPress={() => {
-                    //             this.props.navigation.navigate("PropertyPager")
-                    //         }} style={{ position: 'absolute', alignItems: 'center', width: GCStyle.GCWidth * 0.2, height: 70, bottom: GCStyle.tabBArHeight - 49, left: (GCStyle.GCWidth * 0.4), backgroundColor: 'rgba(0,0,0,0)', }}>
-                    //             <Image style={[styles.tabImg, { height: 57, marginTop: 3, width: 55, resizeMode: 'contain', }]} source={index == 2 ? Images.tabOk : Images.tabokN} />
-                    //             <Text style={[styles.tabText, { width: GCStyle.GCWidth * 0.2, textAlign: 'center', position: 'absolute', alignSelf: 'center', color: '#424242' }]}>{GCApp.appName}</Text>
-                    //         </TouchableOpacity>
-                    //     )
-                    // }
-                    return (
-                        <TouchableOpacity style={styles.tabBnStyle}
-                            onPress={() => {
-                                // this.props.navigation.navigate("HomePage")
-                            }} >
-                            <Image style={styles.tabImg} source={Images.tab_icon_store_default}/>
-                            <Text style={styles.tabText}>12</Text>
-                        </TouchableOpacity>
-                    )
-                })}
+            <View style={{ width: OKScreen.width, height: OKScreen.tabBarHeight, borderTopWidth: 1, borderTopColor: OKColor.lineColor,
+                flexDirection: 'row', backgroundColor: 'white' }}>
+                <TouchableOpacity style={styles.tabBnStyle} activeOpacity={1}
+                    onPress={() => {
+                        this.props.navigation.navigate("HomePage")
+                    }} >
+                    <Image style={styles.tabImg} source={index == 0 ? Images.tab_icon_game_pressed : Images.tab_icon_game_default} />
+                    <Text style={styles.tabText}>娱乐</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.tabBnStyle} activeOpacity={1}
+                    onPress={() => {
+                        this.props.navigation.navigate("ChatTabBarPage")
+                    }} >
+                    <Image style={styles.tabImg} source={index == 1 ? Images.tab_icon_chat_pressed : Images.tab_icon_chat_default} />
+                    <Text style={styles.tabText}>消息</Text>
+                </TouchableOpacity>
+                
+                <View style={styles.tabBnStyle}>
+                    <TouchableOpacity style={{ position: 'absolute', width: '100%', height: 68, bottom: 0, left: 0, alignItems: 'center' }} activeOpacity={1}
+                        onPress={() => {
+                            this.props.navigation.navigate("OkpayMainPage")
+                        }} >
+                        <Image style={{ height: 57, width: 55, resizeMode: 'contain' }} source={index == 2 ? Images.tabOk : Images.tabokN} />
+                        <Text style={[styles.tabText, { height: 12, marginTop: -3} ]}>okpay</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity style={styles.tabBnStyle} activeOpacity={1}
+                    onPress={() => {
+                        this.props.navigation.navigate("ShopMainPage")
+                    }} >
+                    <Image style={styles.tabImg} source={index == 3 ? Images.tab_icon_store_pressed : Images.tab_icon_store_default} />
+                    <Text style={styles.tabText}>商城</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.tabBnStyle} activeOpacity={1}
+                    onPress={() => {
+                        this.props.navigation.navigate("MinePage")
+                    }} >
+                    <Image style={styles.tabImg} source={index == 4 ? Images.tab_icon_mine_pressed : Images.tab_icon_mine_default} />
+                    <Text style={styles.tabText}>我的</Text>
+                </TouchableOpacity>
             </View>
         )
     }

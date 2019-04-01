@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { AppRegistry, Image } from 'react-native';
 import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator, StackViewTransitionConfigs } from 'react-navigation';
+import Images from './Images';
 
+//Login
 import LaunchPage from '../Pages/Login/LaunchPage';
 import LoginPage from '../Pages/Login/LoginPage';
 import ForgetPasswordPage from '../Pages/Login/ForgetPasswordPage';
-import Images from './Images';
-import CustomTabBar from './CustomTabBar';
 
+//TabBar
 import HomePage from '../Pages/Home/HomePage';
 import ChatTabBarPage from '../Pages/Chat/ChatTabBarPage';
 import OkpayMainPage from '../Pages/Okpay/OkpayMainPage';
 import ShopMainPage from '../Pages/Shop/ShopMainPage';
 import MinePage from '../Pages/Mine/MinePage';
+import CustomTabBar from './CustomTabBar';
+
+//Home
+import HashRateRanking from '../Pages/Home/HashRateRanking';
 
 //登录跳转页面
 const LoginStackNavigator = createStackNavigator(
@@ -52,9 +57,10 @@ const MainTabBar = createBottomTabNavigator(
         MinePage: { screen: MinePage },
     },
     {
-        initialRouteName: 'OkpayMainPage',
+        initialRouteName: 'HomePage',
         backBehavior: 'initialRoute',
         lazy: true,
+        // headerMode: 'none',//无导航
         tabBarComponent: (props, { navigation }) => {
             return (
                 //自定义tabbar
@@ -67,12 +73,18 @@ const MainTabBar = createBottomTabNavigator(
 //常规跳转页面
 const NormalStackNavigator = createStackNavigator(
     {
-        MainTabBar: { screen: MainTabBar },
+        MainTabBar: {
+            screen: MainTabBar, 
+            navigationOptions: {
+                header: null  //TabBar不展示导航栏
+            } 
+        },
+        HashRateRanking: { screen:HashRateRanking }
     },
     {
         initialRouteName: 'MainTabBar',
         mode: 'card',
-        /* The header config from HomeScreen is now here */
+        
         navigationOptions: {
             headerStyle: {
                 backgroundColor: 'white',
@@ -96,7 +108,6 @@ const NormalStackNavigator = createStackNavigator(
 const NormalModalNavigator = createStackNavigator(
     {
         NormalStackNavigator: { screen: NormalStackNavigator },
-        HomePage: { screen: HomePage },
     },
     {
         initialRouteName: 'NormalStackNavigator',
@@ -105,7 +116,7 @@ const NormalModalNavigator = createStackNavigator(
     }
 )
 
-//处理只显示一次的页面 如启动广告页
+//处理只显示一次的页面 如启动广告页 action reset
 const SwitchNavigator = createSwitchNavigator(
     {
         LaunchPage: { screen: LaunchPage },

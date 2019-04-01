@@ -10,11 +10,11 @@ class UserDataManager {
     /* 初始化AppStore属性数据 APP启动时 new UserDataManager() 会加载一次*/
     loadData() {
         OKStorage.read(MSUserToken).then((ret) => {
-            // AppStore.setUserToken(ret ? ret : '');
+            AppStore.setUserToken(ret ? ret : '');
         }).catch(() => {
         });
         OKStorage.read(MSUserData).then((ret) => {
-            // AppStore.setUserData(ret ? ret : '');
+            AppStore.setUserData(ret ? ret : '');
         }).catch(() => {
         });
     }

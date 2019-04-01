@@ -1,7 +1,7 @@
 'use strict';
 import ServiceUrl from './ServiceUrl';
 import Toast from 'react-native-zzy-toast';
-
+import AppStore from '../MobxStore/AppStore'
 /**
  * fetch 网络请求的header，可自定义header 内容
  * @type {{Accept: string, Content-Type: string, accessToken: *}}
@@ -11,6 +11,7 @@ let header = {
     'Content-Type': 'application/json',
     "Connection": "close",
     "type": "getUserData",
+    "token": AppStore.userToken ? AppStore.userToken : ''
 }
 
 /**
@@ -67,12 +68,14 @@ export default class DataRequestTool {
    * @param params 请求参数
    * @returns {Promise}
    */
-    static getRequest = (url, params = {}) => {
+    static getRequest = (url, params) => {
         return timeoutFetch(
             fetch(handleUrl(url, params), {
             method: 'GET',
             headers: header
         })).then(response => {
+            console.log('成功后检查数据:', response);
+            
             // 成功后检查数据
             if (response.ok) {
                 return response
@@ -82,6 +85,7 @@ export default class DataRequestTool {
                 throw error
             }
         }).then(response => {
+            console.log('解析数据:', response);
             //解析数据
             let json = response.json()
             if (json.state == 301 || json.state == 302) {
@@ -90,6 +94,7 @@ export default class DataRequestTool {
             }
             return json
         }).catch(error => {
+            console.log('成功后检查数据:', error);
             throw error
         })
     }

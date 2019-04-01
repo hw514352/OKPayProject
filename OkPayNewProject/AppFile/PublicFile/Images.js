@@ -11,6 +11,7 @@ export default {
     tab_icon_okpay_default: require("../ImageSource/TabBar/tab_icon_okpay_default.png"),
     tab_icon_okpay_pressed: require("../ImageSource/TabBar/tab_icon_okpay_pressed.png"),
     tab_icon_store_default: require("../ImageSource/TabBar/tab_icon_store_default.png"),
+    tab_icon_store_pressed: require("../ImageSource/TabBar/tab_icon_store_pressed.png"),
     tabOk: require("../ImageSource/TabBar/tabOk.png"),
     tabokN: require("../ImageSource/TabBar/tabokN.png"),
 
@@ -24,4 +25,7 @@ export default {
     mineral_ufo_img: require("../ImageSource/Home/mineral_ufo_img.png"),
     mineral_wanzhuanokpay_btn: require("../ImageSource/Home/mineral_wanzhuanokpay_btn.png"),
     mineral_yuhangyuan_img: require("../ImageSource/Home/mineral_yuhangyuan_img.png"),
+    rank_first_icon: require("../ImageSource/Home/rank_first_icon.png"),
+    rank_second_icon: require("../ImageSource/Home/rank_second_icon.png"),
+    rank_third_icon: require("../ImageSource/Home/rank_third_icon.png"),
 }
