@@ -10,8 +10,7 @@ let header = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     "Connection": "close",
-    "type": "getUserData",
-    "token": AppStore.userToken ? AppStore.userToken : ''
+    "type": "getUserData"
 }
 
 /**
@@ -69,13 +68,13 @@ export default class DataRequestTool {
    * @returns {Promise}
    */
     static getRequest = (url, params) => {
+        header.token = AppStore.userToken ? AppStore.userToken : '';
+        console.log("Network-GET:", ServiceUrl.HostUrl + url, params, header);
         return timeoutFetch(
-            fetch(handleUrl(url, params), {
+            fetch(handleUrl(ServiceUrl.HostUrl + url, params), {
             method: 'GET',
             headers: header
-        })).then(response => {
-            console.log('成功后检查数据:', response);
-            
+        })).then(response => {          
             // 成功后检查数据
             if (response.ok) {
                 return response
@@ -85,16 +84,15 @@ export default class DataRequestTool {
                 throw error
             }
         }).then(response => {
-            console.log('解析数据:', response);
             //解析数据
             let json = response.json()
+            console.log('json:', json, ",path:", ServiceUrl.HostUrl + url);  
             if (json.state == 301 || json.state == 302) {
                 // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
                 Toast.show('登录失效，即将退出！');//登录失效
             }
             return json
         }).catch(error => {
-            console.log('成功后检查数据:', error);
             throw error
         })
     }
@@ -105,7 +103,9 @@ export default class DataRequestTool {
      * @param params 请求参数
      * @returns {Promise}
      */
-    static postRequrst = (url, params = {}) => {
+    static postRequrst = (url, params) => {
+        header.token = AppStore.userToken ? AppStore.userToken : '';
+        console.log("Network-POST:", ServiceUrl.HostUrl + url, params, header);
         return timeoutFetch(fetch(ServiceUrl.HostUrl+url, {
             method: 'POST',
             headers: header,
@@ -119,9 +119,10 @@ export default class DataRequestTool {
                 error.response = response
                 throw error
             }
-        }).then(response => {
+        }).then(response => { 
             //解析数据
-            let json = response.json()
+            let json = response.json();
+            console.log('json:', json, ",path:", ServiceUrl.HostUrl + url); 
             if(json.state == 301 || json.state == 302){
                 // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
                 Toast.show('登录失效，即将退出！');//登录失效

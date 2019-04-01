@@ -28,4 +28,17 @@ export default {
     rank_first_icon: require("../ImageSource/Home/rank_first_icon.png"),
     rank_second_icon: require("../ImageSource/Home/rank_second_icon.png"),
     rank_third_icon: require("../ImageSource/Home/rank_third_icon.png"),
+
+    //Shop
+    chat_bitmap_img: require("../ImageSource/Shop/chat_bitmap_img.png"),
+    disLike: require("../ImageSource/Shop/disLike.png"),
+    icon_order: require("../ImageSource/Shop/icon_order.png"),
+    icon_ProjectActivities: require("../ImageSource/Shop/icon_ProjectActivities.png"),
+    icon_supermarket: require("../ImageSource/Shop/icon_supermarket.png"),
+    like_blank: require("../ImageSource/Shop/like_blank.png"),
+    love: require("../ImageSource/Shop/love.png"),
+    menu: require("../ImageSource/Shop/menu.png"),
+    my_bg: require("../ImageSource/Shop/my_bg.png"),
+    search: require("../ImageSource/Shop/search.png"),
+    shopcart: require("../ImageSource/Shop/shopcart.png"),
 }

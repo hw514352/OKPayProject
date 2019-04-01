@@ -68,11 +68,6 @@ export default class CustomTabBar extends Component {
     render() {
         let routeName = this.props.navigation.state.routeName;
         let index = this.props.navigation.state.index;
-        // let tabBarInfo = [{ name: '娱乐', icon: index == 0 ? Images.Images.tab_icon_game_default : Images.tab_icon_game_pressed},
-        //     { name: '消息', icon: index == 1 ? Images.tab_icon_chat_default : Images.tab_icon_chat_pressed },
-        //     { name: 'okpay', icon: index == 2 ? Images.tabOk : Images.tabokN },
-        //     { name: '商城', icon: index == 3 ? Images.tab_icon_store_default : Images.tab_icon_store_pressed },
-        //     { name: '我的', icon: index == 4 ? Images.tab_icon_mine_default : Images.tab_icon_mine_pressed }];
         return (
             <View style={{ width: OKScreen.width, height: OKScreen.tabBarHeight, borderTopWidth: 1, borderTopColor: OKColor.lineColor,
                 flexDirection: 'row', backgroundColor: 'white' }}>

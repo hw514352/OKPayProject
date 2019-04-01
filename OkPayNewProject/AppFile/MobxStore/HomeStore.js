@@ -63,7 +63,7 @@ class HomeStore {
     @observable gccoinsDatas = [];
     @action('矿石-列表') gccoinsAction = (pageSize) => {
         let parames = { 'memberId': AppStore.userData.id, 'state': 0, 'pageSize': pageSize };
-        DataRequestTool.getRequest(ServiceUrl.myBalance, parames).then((ret) => {
+        DataRequestTool.getRequest(ServiceUrl.gccoins, parames).then((ret) => {
             if (ret.state == 0) {
                 this.gccoinsDatas = ret.dataMap.data.data ? ret.dataMap.data.data : [];
             }
@@ -110,12 +110,10 @@ class HomeStore {
     @action('算力排行榜') getCalculateForceRanking = () => {
         DataRequestTool.getRequest(ServiceUrl.getCalculateForceRanking, '').then((ret) => {
             if (ret.state == 0) {
-                alert('123')
                 this.calculateForceRankingData = ret.dataMap.data ? ret.dataMap.data : [];
                 this.memberData = ret.dataMap.member ? ret.dataMap.member : {};
             }
         }).catch((error) => {
-            alert(error)
             // Toast.show(err);
         });
     }
