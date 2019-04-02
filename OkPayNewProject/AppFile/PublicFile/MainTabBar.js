@@ -18,6 +18,7 @@ import CustomTabBar from './CustomTabBar';
 
 //Home
 import HashRateRanking from '../Pages/Home/HashRateRanking';
+import MyHashRate from '../Pages/Home/MyHashRate';
 
 //登录跳转页面
 const LoginStackNavigator = createStackNavigator(
@@ -79,7 +80,8 @@ const NormalStackNavigator = createStackNavigator(
                 header: null  //TabBar不展示导航栏
             } 
         },
-        HashRateRanking: { screen:HashRateRanking }
+        HashRateRanking: { screen:HashRateRanking },
+        MyHashRate: { screen: MyHashRate }
     },
     {
         initialRouteName: 'MainTabBar',

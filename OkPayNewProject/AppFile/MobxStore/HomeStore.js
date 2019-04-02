@@ -118,6 +118,48 @@ class HomeStore {
         });
     }
 
+    ownCalForce_pageNo = 1;
+    ownCalForce_pageSize = 10;
+    ownCalForce_noMoreData = false;
+
+    reloadOwnCalForce() {
+        ownCalForce_pageNo = 1;
+        ownCalForce_noMoreData = false;
+        this.ownCalForce();
+    }
+    loadMoreOwnCalForce() {
+        if (!this.ownCalForce_noMoreData) {
+            this.ownCalForce_pageNo += 1;
+            this.ownCalForce();
+        }
+    }
+
+    @observable ranking = 0;
+    @observable calculateForce = 0;
+    @observable ownCalForceData = [];  // 1:签到奖励； 2:邀请奖励
+    @action('我的算力') ownCalForce = () => {
+        DataRequestTool.getRequest(ServiceUrl.ownCalForce, { 'pageNo': pageNo, 'pageSize': pageSize }).then((ret) => {
+            if (ret.state == 0) {
+                this.ranking = ret.dataMap.ranking ? ret.dataMap.ranking : 0
+                this.calculateForce = ret.dataMap.calculateForce ? ret.dataMap.calculateForce : 0
+
+                let arr = ret.dataMap.pageData.data
+                if (this.ownCalForce_pageNo == 1) {
+                    this.ownCalForceData = arr ? arr : []
+                } else {
+                    this.ownCalForceData = this.ownCalForceData.concat(arr ? arr : []);
+                }
+                let totalPage = ret.dataMap.pageData.totalPage
+                if (this.ownCalForceData.length >= totalPage) {
+                    this.ownCalForce_noMoreData = true;
+                }
+            }
+        }).catch((error) => {
+            // Toast.show(err);
+        });
+    }
+
+
     // @observable totalCount = 1;
     // @observable didLoadAllData = false;
     // //type 1-挂单通知，2-转余额通知，3-奖励通知
@@ -184,48 +226,7 @@ class HomeStore {
     //     });
     // }
 
-    // // 我的算力
-    // ownCalForce_pageNo = 1;
-    // ownCalForce_pageSize = 10;
-    // ownCalForce_noMoreData = false;
-
-    // reloadOwnCalForce() {
-    //     ownCalForce_pageNo = 1;
-    //     ownCalForce_noMoreData = false;
-    //     this.ownCalForce();
-    // }
-    // loadMoreOwnCalForce() {
-    //     if (!this.ownCalForce_noMoreData) {
-    //         this.ownCalForce_pageNo += 1;
-    //         this.ownCalForce();
-    //     }
-    // }
-
-    // @observable ranking = 0;
-    // @observable calculateForce = 0;
-    // @observable ownCalForceData = [];  // 1:签到奖励； 2:邀请奖励
-    // @action('我的算力') ownCalForce = () => {
-    //     HomeApi.ownCalForceListData(this.ownCalForce_pageNo, this.ownCalForce_pageSize).then((ret) => {
-    //         if (ret.state == 0) {
-    //             this.ranking = ret.dataMap.ranking ? ret.dataMap.ranking : 0
-    //             this.calculateForce = ret.dataMap.calculateForce ? ret.dataMap.calculateForce : 0
-
-    //             let arr = ret.dataMap.pageData.data
-    //             if (this.ownCalForce_pageNo == 1) {
-    //                 this.ownCalForceData = arr ? arr : []
-    //             } else {
-    //                 this.ownCalForceData = this.ownCalForceData.concat(arr ? arr : []);
-    //             }
-
-    //             let totalPage = ret.dataMap.pageData.totalPage
-    //             if (this.ownCalForceData.length >= totalPage) {
-    //                 this.ownCalForce_noMoreData = true;
-    //             }
-    //         }
-    //     }).catch((err) => {
-    //     });
-    // }
-
+    
     // // 获取我的好友列表
     // friend_pageNo = 1;
     // friend_pageSize = 10;

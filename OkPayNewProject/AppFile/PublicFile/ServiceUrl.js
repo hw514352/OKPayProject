@@ -19,10 +19,16 @@ export default {
     configs: base_project_name + "api/common/configs?keys=about_us,service_telephone,fund_transfer_enabled,issue_token_total,issue_token_in,complaint_service_telephone",
     gccoinsTake: base_project_name + "api/gccoins/take",//矿石-领取
     getCalculateForceRanking: base_project_name + "api/member/task/getCalculateForceRanking",//算力排行榜
-    
+    ownCalForce: base_project_name + "api/record/ownCalForce",//我的算力
+
+    //Shop
+    homePageData: shopMall_project_name + 'api/tgoods/homePageData',//首页
+    bannerList: shopMall_project_name + 'api//zjjoy/banner/list',//banner列表
+    memberIsLikes: "/btb2mall-client//api/guessYouLikeGoods/memberIsLikes", //喜欢/不喜欢
+
     // H5
     lottery_h5: HostUrl + '/btb2-wms/h5/h5-lottery.html',//抽奖页面
-
+    projectActivities_h5: HostUrl + '/btb2-wms/h5/h5-share.html',//专题活动界面
 
     defaultAvatar: "http://image.uuschool.cn/20181205/5b0e6cdc03b34cabb48fa652852d036e", // 默认头像
 }

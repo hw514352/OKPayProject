@@ -256,7 +256,7 @@ export default class HomePage extends Component<Props> {
                         {/* ok积分 */}
                         <TouchableOpacity style={{ marginLeft: 25, height: 25, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(190,152,86,0.17)', borderRadius: 5 }} activeOpacity={1}
                             onPress={() => {
-                                // this.props.navigation.navigate('MyHashRate');
+                                this.props.navigation.navigate('MyHashRate');
                             }}>
                             <Image style={{ width: 16, height: 17, marginLeft: 6 }} source={Images.mineral_jifen_icon} resizeMode='contain' />
                             <Text style={{ marginLeft: 4, color: 'white', fontSize: 14 }}>ok积分</Text>
