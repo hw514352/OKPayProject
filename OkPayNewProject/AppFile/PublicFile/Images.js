@@ -44,4 +44,5 @@ export default {
     my_bg: require("../ImageSource/Shop/my_bg.jpg"),
     search: require("../ImageSource/Shop/search.png"),
     shopcart: require("../ImageSource/Shop/shopcart.png"),
+    icon_promotions: require("../ImageSource/Shop/icon_promotions.png"),
 }

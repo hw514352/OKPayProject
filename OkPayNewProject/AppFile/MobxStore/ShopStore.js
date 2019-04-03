@@ -5,14 +5,16 @@ import ServiceUrl from '../PublicFile/ServiceUrl';
 import UserDataManager from '../PublicFile/UserDataManager';
 
 class ShopStore {
+    @observable sectionData = [];// 商品数据 包括拼团和正规商品
     @observable storesList = [];  //商店
     @observable SpellGroupsList = []; //拼团
     @observable memberLikesGoodsList = {};  //淘你喜欢(单个数据)
     @action('首页接口') homePageData = () => {
         DataRequestTool.postRequrst(ServiceUrl.homePageData, '').then((ret) => {
             if (ret.state == 0) {
-                this.storesList = ret.dataMap.storesList ? ret.dataMap.storesList : [];
-                this.SpellGroupsList = ret.dataMap.SpellGroupsList ? ret.dataMap.SpellGroupsList : [];
+                let storesList = ret.dataMap.storesList ? ret.dataMap.storesList : [];
+                let SpellGroupsList = ret.dataMap.SpellGroupsList ? ret.dataMap.SpellGroupsList : [];
+                this.sectionData = [{ id: 1, data: SpellGroupsList.splice(0, SpellGroupsList.length > 6 ? 6 : SpellGroupsList.length) },{ id: 0, data: storesList }];
                 this.memberLikesGoodsList = ret.dataMap.memberLikesGoodsList ? ret.dataMap.memberLikesGoodsList : {};
             }
         }).catch((error) => {
