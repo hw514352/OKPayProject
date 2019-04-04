@@ -29,12 +29,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  //  [self checkAPPUpdateState];
+//    [self checkAPPUpdateState];
   return YES;
 }
-
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
-{
+#pragma mark - RCTBridgeDelegate
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge{
   return [self getJSCodeLocation];
 }
 
@@ -42,11 +41,10 @@
   NSURL *jsCodeLocation;
   
   NSString *localPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-  NSString *filePath = [localPath stringByAppendingPathComponent:@"bundle-ios/main.jsbundle"];
+  NSString *filePath = [localPath stringByAppendingPathComponent:@"bundle-ios/main.jsbundle"];//同级目录下 asset资源文件
   NSFileManager *fileManager = [NSFileManager defaultManager];
   //本地是否存在
   if([fileManager fileExistsAtPath:filePath]) {
-//    NSString *newUrl = [NSString stringWithFormat:@"file://%@",filePath];
     jsCodeLocation = [NSURL fileURLWithPath:filePath];
     return jsCodeLocation;
   } else {
@@ -85,7 +83,6 @@
         UIViewController *rootView = [[[UIApplication sharedApplication] keyWindow] rootViewController];
         [rootView presentViewController:alert animated:YES completion:nil];
       }
-      
     }
   } failure:^(NSError *error) {
     

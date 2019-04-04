@@ -165,7 +165,7 @@ export default class ShopMainPage extends Component<Props> {
                     contentContainerStyle={{ }}
                     sections={ShopStore.sectionData}
                     renderItem={({ item, index, section }) => {
-                        let sectionIndex = ShopStore.sectionData.indexOf(section);
+                        let sectionIndex = ShopStore.sectionData.indexOf(section);                        
                         if (sectionIndex == 0) {
                             return (
                                 <SpellGroupCell item={item} index={index} />
@@ -175,9 +175,8 @@ export default class ShopMainPage extends Component<Props> {
                                 <NormalCell item={item} index={index} />
                             )
                         }
-                        
                     }}
-                    ListHeaderComponent={this._ListHeaderComponent}
+                    // ListHeaderComponent={this._ListHeaderComponent}
                     renderSectionHeader={this._renderSectionHeader}
                     keyExtractor={(item, index) => item.goodsId}
                 />
@@ -186,12 +185,13 @@ export default class ShopMainPage extends Component<Props> {
     }
     _renderSectionHeader = ({section}) => {
         let sectionIndex = ShopStore.sectionData.indexOf(section);
-        if (sectionIndex == 1) return;
         return (
-            <View style={{}}>
+            <View style={{paddingHorizontal: 10}}>
                 <View style={{ height: 17 }}></View>
-                <View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: 18, alignItems: 'center', justifyContent: 'space-between',
-                borderTopLeftRadius: 6, borderTopRightRadius: 6, backgroundColor: 'white' }}>
+                {sectionIndex == 0 ? <View style={{
+                    flex: 1, flexDirection: 'row', paddingHorizontal: 18, alignItems: 'center', justifyContent: 'space-between',
+                    borderTopLeftRadius: 6, borderTopRightRadius: 6, backgroundColor: 'white'
+                }}>
                     <Text style={{ fontSize: 16, fontWeight: 'bold', color: "#272727", }}>拼团专区</Text>
                     <TouchableOpacity style={{ height: 40, justifyContent: 'center' }}
                         onPress={() => {
@@ -199,7 +199,7 @@ export default class ShopMainPage extends Component<Props> {
                         }} >
                         <Text style={{ fontSize: 12, fontWeight: 'bold', color: "#B2B2B1", }}>查看更多</Text>
                     </TouchableOpacity>
-                </View>
+                </View>:null}
             </View>
         )
     }
@@ -228,7 +228,7 @@ export default class ShopMainPage extends Component<Props> {
                     </Swiper> : null}
                 </View>
 
-                <View style={{ height: 128, flexDirection: 'row', backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={{ height: 128, flexDirection: 'row', backgroundColor: 'white', justifyContent: 'space-around', alignItems: 'center' }}>
                     {[{title: "精选超市", icon: Images.icon_supermarket}, 
                         { title: "限时促销", icon: Images.icon_promotions}, 
                         { title: "专题活动", icon: Images.icon_ProjectActivities}, 
@@ -255,7 +255,7 @@ export default class ShopMainPage extends Component<Props> {
                 </View>
 
                 <TouchableOpacity 
-                    style={{ height: 420, alignSelf: 'center', overflow: 'hidden', borderRadius: 6, marginTop: 17, backgroundColor: 'white' }}
+                    style={{ height: 420, overflow: 'hidden', marginHorizontal: 10, borderRadius: 6, marginTop: 17, backgroundColor: 'white' }}
                     activeOpacity={1}
                     onPress={() => {
                         this.props.navigation.push("SwipeCardsPage")
