@@ -8,7 +8,7 @@ class ShopStore {
     @observable sectionData = [];// 商品数据 包括拼团和正规商品
     @observable memberLikesGoodsList = {};  //淘你喜欢(单个数据)
     @action('首页接口') homePageData = () => {
-        DataRequestTool.postRequrst(ServiceUrl.homePageData, '').then((ret) => {
+        DataRequestTool.getRequest(ServiceUrl.homePageData, '').then((ret) => {
             if (ret.state == 0) {
                 let SpellGroupsList = ret.dataMap.SpellGroupsList ? ret.dataMap.SpellGroupsList : '';
                 let storesList = ret.dataMap.storesList ? ret.dataMap.storesList : '';
@@ -23,7 +23,7 @@ class ShopStore {
                 this.memberLikesGoodsList = ret.dataMap.memberLikesGoodsList ? ret.dataMap.memberLikesGoodsList : {};
             }
         }).catch((error) => {
-            // Toast.show(err);
+            Toast.show(err);
         });
     }
 
@@ -43,9 +43,23 @@ class ShopStore {
         let formData = new FormData();
         formData.append("type", type);
         formData.append("goodId", id);
-        DataRequestTool.postRequrst(ServiceUrl.bannerList, formData).then((ret) => {
+        DataRequestTool.postRequest(ServiceUrl.bannerList, formData).then((ret) => {
             if (ret.state == 0) {
                 this.isMemberIsLikes = true
+            }
+        }).catch((error) => {
+            // Toast.show(err);
+        });
+    }
+
+    @observable shopInfo = null
+    @action('店铺信息') requestShopInfo = () => {
+        let formData = new FormData();
+        formData.append("test", '');
+        DataRequestTool.postRequest(ServiceUrl.shopGetUrl, formData).then((ret) => {
+            if (ret.state == 0) {
+                this.shopInfo = ret.dataMap.shop;
+                this.shopImageUrl = ret.dataMap.shop.shopImageUrl
             }
         }).catch((error) => {
             // Toast.show(err);

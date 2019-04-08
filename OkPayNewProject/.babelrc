@@ -1,11 +1,18 @@
+// {
+//     "presets": [
+//         "react-native"
+//     ],
+//     "plugins": [
+//         "syntax-decorators",
+//         "transform-decorators-legacy"
+//     ]
+// }
 {
     "presets": [
-        "module:metro-react-native-babel-preset",
-        // "@babel/preset-env"
+        "module:metro-react-native-babel-preset"
     ],
     "plugins": [
-        ["@babel/plugin-transform-flow-strip-types"],
-        ["@babel/plugin-proposal-decorators",{"legacy": true }],
-        // ["@babel/plugin-proposal-class-properties",{"loose": true}]
+        ["@babel/plugin-proposal-decorators",{"legacy": true}],
+        ["@babel/transform-runtime",{"helpers": true,"regenerator": false}]
     ]
 }

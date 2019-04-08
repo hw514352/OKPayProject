@@ -138,10 +138,11 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-linear-gradient')
+    implementation project(':react-native-zzy-toast')
     implementation project(':react-native-video')
     implementation project(':react-native-sound')
-    implementation project(':react-native-zzy-toast')
+    implementation project(':react-native-linear-gradient')
+    implementation project(':react-native-image-picker')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

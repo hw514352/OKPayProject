@@ -1,5 +1,8 @@
 'use strict';
 import { NativeModules, Platform, Dimensions } from 'react-native';
+import GlobalParameters from './GlobalParameters';
+import Images from './Images';
+
 let screenW = Dimensions.get('window').width;
 let screenH = Dimensions.get('window').height;
 // iPhoneX Xs

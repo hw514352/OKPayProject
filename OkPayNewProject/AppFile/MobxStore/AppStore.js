@@ -21,7 +21,8 @@ class AppStore {
     //项目配置客服信息
     @observable customerServiceData = {}
     //系统通知监听名称
-    @observable outLign = 'outLign';
+    @observable logout = 'logout';
+    @observable isWallet = false;
 
     @action('用户信息') setUserData = (value) => {
         this.userData = value ? value : {};
@@ -34,6 +35,9 @@ class AppStore {
     }
     @action('项目配置客服信息') setCustomerServiceData = (value) => {
         this.customerServiceData = value ? value : {};
+    }
+    @action('是否有钱包') setIsWallet = (value) => {
+        this.isWallet = value;
     }
 }
 const store = new AppStore();

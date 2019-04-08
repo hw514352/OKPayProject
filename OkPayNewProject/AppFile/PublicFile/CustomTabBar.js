@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, DeviceEventEmitter } from 'react-native';
 import Images from './Images';
 import GlobalParameters from './GlobalParameters';
+import UserDataManager from './UserDataManager';
+import AppStore from '../MobxStore/AppStore'
+import Toast from 'react-native-zzy-toast';
 
 export default class CustomTabBar extends Component {
     constructor(props) {
@@ -59,10 +62,32 @@ export default class CustomTabBar extends Component {
         //     })
         // }
         // );
+
+        //被退出监听
+        this.outLignEvent = DeviceEventEmitter.addListener(AppStore.logout, a => {
+            Toast.show(a);
+            UserDataManager.cleanStorage();
+            this.props.navigation.navigate('LoginStackNavigator');
+
+            // 退出环信
+            // jPushHelper.setAlias('');//删除极光别名
+            // if (Platform.OS === 'ios') {
+            //     MyBridgeModule.LogoutEaseWithCallback((error, event) => {
+            //         if (error) {
+            //             // alert('退出环信失败，event:',event);
+            //         } else {
+            //             // alert('退出环信成功，event:',event);
+            //         }
+            //     })
+            // } else {
+            //     Client.logout();
+            // }
+        });
     }
 
     componentWillUnMount() {
         // this.subscription.remove();
+        this.outLignEvent.remove();
     }
 
     render() {

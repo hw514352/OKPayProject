@@ -15,7 +15,7 @@ class LoginStore {
         } else {
             formData.append("smsCode", password);
         }
-        DataRequestTool.postRequrst(ServiceUrl.login, formData).then((ret) => {
+        DataRequestTool.postRequest(ServiceUrl.login, formData).then((ret) => {
             if (ret.state == 0) {
                 //本地保存用户信息 同事内存保存
                 UserDataManager.setUserData( ret.dataMap.member, ret.dataMap.tokenStr );

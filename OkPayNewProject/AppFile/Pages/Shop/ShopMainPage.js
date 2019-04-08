@@ -8,7 +8,6 @@ import {
     Animated,
     TouchableOpacity,
     SectionList,
-    FlatList,
     UIManager
 } from 'react-native';
 import GlobalParameters from '../../PublicFile/GlobalParameters';
@@ -159,11 +158,11 @@ export default class ShopMainPage extends Component<Props> {
                     </View>
                 </View>
 
-                <SectionList 
+                <SectionList
                     style={{flex: 1}}
                     stickySectionHeadersEnabled={false}
                     contentContainerStyle={{ }}
-                    sections={ShopStore.sectionData}
+                    sections={ShopStore.sectionData.slice()}
                     renderItem={({ item, index, section }) => {
                         let sectionIndex = ShopStore.sectionData.indexOf(section);                        
                         if (sectionIndex == 0) {
@@ -176,7 +175,7 @@ export default class ShopMainPage extends Component<Props> {
                             )
                         }
                     }}
-                    // ListHeaderComponent={this._ListHeaderComponent}
+                    ListHeaderComponent={this._ListHeaderComponent}
                     renderSectionHeader={this._renderSectionHeader}
                     keyExtractor={(item, index) => item.goodsId}
                 />
@@ -398,7 +397,7 @@ class NormalCell extends Component {  //换成PureComponent试试 PureComponent�
 }
 
 //拼团商品
-class SpellGroupCell extends Component {  //换成PureComponent试试 PureComponent只适应简单的数据 如string 会做浅比较 再确认是否刷新
+class SpellGroupCell extends Component {
     constructor(props: Readonly<Props>) {
         super(props);
         this.state = {
@@ -423,7 +422,6 @@ class SpellGroupCell extends Component {  //换成PureComponent试试 PureCompon
         let countDownTime = PublicMethods.SpellGroupTime(item.createTime, item.sustain);
         let countDownTimeStr = moment(countDownTime).format("YYYY/MM/DD HH:mm:ss");
         //判断时间是否到期
-        //  console.log(Date.parse(new Date()),'llookk');
         let isTimeOut = false;
         if (Date.parse(new Date()) > countDownTime) {
             isTimeOut = true;

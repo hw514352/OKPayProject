@@ -45,4 +45,17 @@ export default {
     search: require("../ImageSource/Shop/search.png"),
     shopcart: require("../ImageSource/Shop/shopcart.png"),
     icon_promotions: require("../ImageSource/Shop/icon_promotions.png"),
+
+    //Mine
+    general_level_bg: require("../ImageSource/Mine/general_level_bg.png"),
+    my_invitefriends_icon: require("../ImageSource/Mine/my_invitefriends_icon.png"),
+    my_next_btn: require("../ImageSource/Mine/my_next_btn.png"),
+    my_settings_icon: require("../ImageSource/Mine/my_settings_icon.png"),
+    my_suggestion_icon: require("../ImageSource/Mine/my_suggestion_icon.png"),
+    my_top_bg: require("../ImageSource/Mine/my_top_bg.png"),
+    open_shop_apply: require("../ImageSource/Mine/open_shop_apply.png"),
+    tourist_level_bg: require("../ImageSource/Mine/tourist_level_bg.png"),
+    vip_level_bg: require("../ImageSource/Mine/vip_level_bg.png"),
+    my_person_icon: require("../ImageSource/Mine/my_person_icon.png"),
+    wallet_next_btn: require("../ImageSource/Mine/wallet_next_btn.png"),
 }

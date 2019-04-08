@@ -1,4 +1,5 @@
 'use strict';
+import { DeviceEventEmitter } from 'react-native';
 import ServiceUrl from './ServiceUrl';
 import Toast from 'react-native-zzy-toast';
 import AppStore from '../MobxStore/AppStore'
@@ -67,32 +68,36 @@ export default class DataRequestTool {
    * @param params 请求参数
    * @returns {Promise}
    */
-    static getRequest = (url, params) => {
+    static getRequest = (url, params, isLoading) => {
+        if (isLoading == 1) {
+            Toast.showLoading();
+        } else if (isLoading != 0) {
+            Toast.showLoading(isLoading);
+        }
         header.token = AppStore.userToken ? AppStore.userToken : '';
-        console.log("Network-GET:", ServiceUrl.HostUrl + url, params, header);
-        return timeoutFetch(
-            fetch(handleUrl(ServiceUrl.HostUrl + url, params), {
+        return timeoutFetch(fetch(handleUrl(ServiceUrl.HostUrl + url, params), {
             method: 'GET',
             headers: header
-        })).then(response => {          
+        })).then((response) => { 
+            Toast.hide();
             // 成功后检查数据
             if (response.ok) {
-                return response
+                return response.json()
             } else {
                 let error = new Error(response.statusText)
                 error.response = response
                 throw error
             }
-        }).then(response => {
+        }).then((json) => {
             //解析数据
-            let json = response.json()
             console.log('json:', json, ",path:", ServiceUrl.HostUrl + url);  
             if (json.state == 301 || json.state == 302) {
-                // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
-                Toast.show('登录失效，即将退出！');//登录失效
+                //登录失效
+                DeviceEventEmitter.emit(AppStore.logout, '登录失效，请重新登录');
             }
             return json
         }).catch(error => {
+            Toast.show(error);
             throw error
         })
     }
@@ -103,32 +108,39 @@ export default class DataRequestTool {
      * @param params 请求参数
      * @returns {Promise}
      */
-    static postRequrst = (url, params) => {
+    static postRequest = (url, params, isLoading) => {
+        if (isLoading == 1) {
+            Toast.showLoading();
+        } else if (isLoading != 0) {
+            Toast.showLoading(isLoading);
+        }
+
         header.token = AppStore.userToken ? AppStore.userToken : '';
-        console.log("Network-POST:", ServiceUrl.HostUrl + url, params, header);
-        return timeoutFetch(fetch(ServiceUrl.HostUrl+url, {
+        url = url.indexOf("http") != -1 ? url : ServiceUrl.HostUrl + url;
+        return timeoutFetch(fetch(url, {
             method: 'POST',
             headers: header,
             body: params
         })).then(response => {
+            Toast.hide();
             // 成功后检查数据
             if (response.ok) {
-                return response
+                return response.json()
             } else {
                 let error = new Error(response.statusText)
                 error.response = response
                 throw error
             }
-        }).then(response => { 
+        }).then(json => { 
             //解析数据
-            let json = response.json();
             console.log('json:', json, ",path:", ServiceUrl.HostUrl + url); 
             if(json.state == 301 || json.state == 302){
-                // DeviceEventEmitter.emit(AppStore.outLign, 'outLign');
-                Toast.show('登录失效，即将退出！');//登录失效
+                //登录失效
+                DeviceEventEmitter.emit(AppStore.logout, '登录失效，请重新登录');
             }
             return json
         }).catch(error => {
+            Toast.show(error);
             throw error
         })
     }

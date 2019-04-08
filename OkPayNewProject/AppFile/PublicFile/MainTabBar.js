@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { AppRegistry, Image } from 'react-native';
-import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator, StackViewTransitionConfigs } from 'react-navigation';
+import { createSwitchNavigator, createBottomTabNavigator, createAppContainer, createStackNavigator, StackViewTransitionConfigs } from 'react-navigation';
 import Images from './Images';
 
+import BaseWebView from '../CustomComponents/BaseWebView';
 //Login
 import LaunchPage from '../Pages/Login/LaunchPage';
 import LoginPage from '../Pages/Login/LoginPage';
@@ -20,6 +21,8 @@ import CustomTabBar from './CustomTabBar';
 import HashRateRanking from '../Pages/Home/HashRateRanking';
 import MyHashRate from '../Pages/Home/MyHashRate';
 
+//Mine
+import UserInfoPage from '../Pages/Mine/UserInfoPage';
 //登录跳转页面
 const LoginStackNavigator = createStackNavigator(
     {
@@ -58,7 +61,7 @@ const MainTabBar = createBottomTabNavigator(
         MinePage: { screen: MinePage },
     },
     {
-        initialRouteName: 'HomePage',
+        initialRouteName: 'MinePage',
         backBehavior: 'initialRoute',
         lazy: true,
         // headerMode: 'none',//无导航
@@ -81,13 +84,15 @@ const NormalStackNavigator = createStackNavigator(
             } 
         },
         HashRateRanking: { screen:HashRateRanking },
-        MyHashRate: { screen: MyHashRate }
+        MyHashRate: { screen: MyHashRate },
+        BaseWebView: { screen: BaseWebView },
+        UserInfoPage: { screen: UserInfoPage },
     },
     {
         initialRouteName: 'MainTabBar',
         mode: 'card',
         
-        navigationOptions: {
+        defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: 'white',
             },
@@ -130,4 +135,4 @@ const SwitchNavigator = createSwitchNavigator(
     }
 )
 
-export default SwitchNavigator;
+export default createAppContainer(SwitchNavigator);
